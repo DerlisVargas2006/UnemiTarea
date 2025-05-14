@@ -1,7 +1,7 @@
 Proceso Menu_Principal
     Definir opcion Como Entero
 	
-    Repetir
+    
         Escribir "======== MENÚ DE FUNCIONES ========"
         Escribir "1. Calculadora de vuelto"
         Escribir "2. Conversor de Kilos a Libras"
@@ -35,6 +35,8 @@ Proceso Menu_Principal
         Escribir "30. Salir"
         Escribir "==================================="
         Escribir "Ingrese una opción:"
+		
+		
         Leer opcion
 		
         Segun opcion Hacer
@@ -75,27 +77,27 @@ Proceso Menu_Principal
             18: 
 				Verificar_Triple()
             19:
-				Saludo_Personalizado()
-            20:
+				Mostrar_Saludo()
+			20: 
 				Deteccion_Vocal_o_Consonante()
             21:
 				Comparar_Nombres()
             22:
-				Verificar_Mayusculas()
+				Verificar_Mayuscula_Minusc()
             23:
-				Combinar_Nombre_Apellido()
+				Mostrar_Nombre_Completo()
             24:
-				Contar_Caracteres()
+				Verificar_Longitud_Palabra()
             25:
 				Repetir_Texto()
             26:
 				Verificar_Palindromo()
             27:
-				Contar_Vocales()
+				Contar_y_Convertir_Mayusculas()
             28:
-				Reemplazar_Palabra()
+				Verificar_Longitud_Palabra()
             29:
-				Convertir_Mayusculas()
+				Contar_y_Convertir_Mayusculas()
             30:  Escribir "Saliendo del programa..."
             De Otro Modo:
                 Escribir "Opción inválida. Intente nuevamente."
@@ -103,7 +105,7 @@ Proceso Menu_Principal
 		
         Escribir "" // Línea vacía para separar cada ciclo
 		
-    Hasta Que opcion = 30
+    
 FinProceso
 
 
@@ -674,51 +676,62 @@ Funcion Clasificar_Presion_Arterial(presion_sistolica)
 	
 FinFuncion
 
-Funcion Mostrar_Saludo()
+
+Funcion Mostrar_Saludo
     Definir nombre Como Cadena
     Escribir "Ingrese su nombre:"
     Leer nombre
     Escribir "¡Hola, ", nombre, "!"
 FinFuncion
 
-Funcion Es_Vocal()
+Funcion Deteccion_Vocal_o_Consonante
     Definir letra Como Caracter
+	
     Escribir "Ingrese una letra:"
     Leer letra
+	
+    // Convertir a minúscula
     letra <- Minusculas(letra)
-    Si letra = "a" O letra = "e" O letra = "i" O letra = "o" O letra = "u" Entonces
-        Escribir "Es una vocal"
+	
+    // Verificar si es una sola letra
+    Si Longitud(letra) <> 1 Entonces
+        Escribir "Por favor, ingrese solo UNA letra."
     Sino
-        Escribir "No es una vocal"
+        // Verificar si es una letra del alfabeto
+        Si letra >= "a" Y letra <= "z" Entonces
+            Si letra = "a" O letra = "e" O letra = "i" O letra = "o" O letra = "u" Entonces
+                Escribir "Es una vocal"
+            Sino
+                Escribir "Es una consonante"
+            FinSi
+        Sino
+            Escribir "No es una letra del alfabeto"
+        FinSi
     FinSi
 FinFuncion
 
-Funcion Es_Consonante()
-    Definir letra Como Caracter
-    Escribir "Ingrese una letra:"
-    Leer letra
-    letra <- Minusculas(letra)
-    Si letra <> "a" Y letra <> "e" Y letra <> "i" Y letra <> "o" Y letra <> "u" Entonces
-        Escribir "Es una consonante"
-    Sino
-        Escribir "No es una consonante"
-    FinSi
-FinFuncion
-
-Funcion Comparar_Nombres()
+Funcion Comparar_Nombres
     Definir nombre1, nombre2 Como Cadena
+	
     Escribir "Ingrese el primer nombre:"
     Leer nombre1
+	
     Escribir "Ingrese el segundo nombre:"
     Leer nombre2
+	
+    // Convertimos ambos nombres a minúsculas para evitar errores por mayúsculas
+    nombre1 <- Minusculas(nombre1)
+    nombre2 <- Minusculas(nombre2)
+	
     Si nombre1 = nombre2 Entonces
-        Escribir "Los nombres son iguales"
+        Escribir "Los nombres son iguales."
     Sino
-        Escribir "Los nombres son diferentes"
+        Escribir "Los nombres son diferentes."
     FinSi
 FinFuncion
 
-Funcion Verificar_Mayuscula_Minusc()
+
+Funcion Verificar_Mayuscula_Minusc
     Definir letra Como Caracter
     Escribir "Ingrese una letra:"
     Leer letra
@@ -729,7 +742,7 @@ Funcion Verificar_Mayuscula_Minusc()
     FinSi
 FinFuncion
 
-Funcion Mostrar_Nombre_Completo()
+Funcion Mostrar_Nombre_Completo
     Definir nombre, apellido Como Cadena
     Escribir "Ingrese su nombre:"
     Leer nombre
@@ -738,11 +751,10 @@ Funcion Mostrar_Nombre_Completo()
     Escribir "Nombre completo: ", nombre, " ", apellido
 FinFuncion
 
-Funcion Verificar_Longitud_Palabra()
+Funcion Verificar_Longitud_Palabra
     Definir palabra Como Cadena
     Escribir "Ingrese una palabra:"
     Leer palabra
-	
     Si Longitud(palabra) > 6 Entonces
         Escribir "La palabra es larga."
     Sino
@@ -750,11 +762,47 @@ Funcion Verificar_Longitud_Palabra()
     FinSi
 FinFuncion
 
-Funcion Contar_y_Convertir_Mayusculas()
+Funcion Repetir_Texto
+    Definir texto Como Cadena
+    Definir veces, i Como Entero
+	
+    Escribir "Ingrese el texto a repetir:"
+    Leer texto
+	
+    Escribir "¿Cuántas veces desea repetir el texto?"
+    Leer veces
+	
+    Para i <- 1 Hasta veces Con Paso 1
+        Escribir texto
+    FinPara
+FinFuncion
+
+Funcion Verificar_Palindromo
+    Definir palabra, palabraInvertida Como Cadena
+    Definir i Como Entero
+	
+    Escribir "Ingrese una palabra:"
+    Leer palabra
+	
+    palabra <- Minusculas(palabra)
+    palabraInvertida <- ""
+	
+    Para i <- Longitud(palabra) Hasta 1 Con Paso -1
+        palabraInvertida <- palabraInvertida + SubCadena(palabra, i, i)
+    FinPara
+	
+    Si palabra = palabraInvertida Entonces
+        Escribir "La palabra es un palíndromo."
+    Sino
+        Escribir "La palabra NO es un palíndromo."
+    FinSi
+FinFuncion
+
+
+Funcion Contar_y_Convertir_Mayusculas
     Definir frase Como Cadena
     Escribir "Ingrese una frase:"
     Leer frase
-	
     Escribir "La frase en mayúsculas es: ", Mayusculas(frase)
     Escribir "La cantidad de caracteres es: ", Longitud(frase)
 FinFuncion
